@@ -1,0 +1,78 @@
+<script src="https://webglfundamentals.org/webgl/resources/webgl-utils.js"></script>
+<script src="https://webglfundamentals.org/webgl/resources/webgl-lessons-helper.js"></script>
+<script src="https://webglfundamentals.org/webgl/lessons/resources/3d-math.js"></script>
+<!-- 
+<link rel="stylesheet" type="text/css" href="style.css">
+<!-- vertex shader -->
+<!-- <script id="2d-vertex-shader" type="x-shader/x-vertex">
+
+    attribute vec4 a_position;
+    uniform mat4 u_worldViewProjection;
+
+    void main() {
+        gl_Position = u_worldViewProjection * a_position;
+    }
+</script> -->
+<!-- fragment shader -->
+<!-- <script id="2d-fragment-shader" type="x-shader/x-fragment">
+    void main() {
+        gl_FragColor = vec4(1,1,1,1);
+    } -->
+<!-- </script> -->
+
+
+
+<html>
+
+<head>
+    <script type="text/javascript" src="shader.js"></script>
+    <script type="glsl" id="vertexShader"> 
+        attribute vec4 aVertexPosition;
+
+        uniform mat4 uModelViewMatrix;
+        uniform mat4 uProjectionMatrix;
+
+
+        void main(){
+            gl_Position = uProjectionMatrix * uModelViewMatrix * aVertexPosition;
+
+        }
+    </script>
+    <script type="glsl" id="fragmentShader"> 
+        void main(){
+            gl_FragColor = vec4(1.,0.,0.,1.);
+    
+        }
+    </script>
+    <script type="text/javascript">
+        function InitializeWebgl() {
+            var canvas = document.getElementById("c");
+            var gl = canvas.getContext("webgl") ||
+                canvas.getContext("experimental-webgl") ||
+                canvas.getContext("moz-webgl") ||
+                canvas.getContext("webkit-3D");
+
+            if (!gl) {
+                console.log("Your browser not support OPENGL;");
+            } else {
+                var vs = document.getElementById("vertexShader").innerHTML;
+                var fg = document.getElementById("fragmentShader").innerHTML;
+
+                var standardProgram = InitializeShader(gl, vs, fg);
+
+                gl.useProgram(standardProgram);
+
+                gl.drawArrays(gl.POINT, 0, 1);
+            }
+        }
+
+    </script>
+
+
+</head>
+
+<body onload="InitializeWebgl()">
+    <canvas width="800px" height="600px" id="c"></canvas>
+</body>
+
+</html>
